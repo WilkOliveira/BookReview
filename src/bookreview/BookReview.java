@@ -1,21 +1,45 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package bookreview;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
+import java.util.StringTokenizer;
 
 /**
  *
- * @author Wilk
+ * @author Wilk Oliveira
  */
 public class BookReview {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
-    }
     
+        File amazonDataset = new File("C:\\Users\\Wilk\\Documents\\GitHub\\BookReview\\files\\BookReviewsFromAmazon.txt"); // Pega o arquivo .csv a ser trabalhado
+        
+        /**
+         * Deixa todo o código dentro de try-catch para controlar erros nativos de arquivo não encontrado
+         */      
+        try{
+            
+            String linhasDoArquivo = new String(); // Cria String "linhasDoArquivo"
+            
+            Scanner leitor = new Scanner(amazonDataset); // Criar um leitor parar ler o arquivo recebido
+                    
+                    /**
+                     * Enquanto o arquivo tiver uma nova linha, continua fazendo sua leitura linha por linha
+                     */
+                    while (leitor.hasNext()){
+                        
+                        linhasDoArquivo = leitor.nextLine(); // Variavel "linhasDoArquivo" recebe proxíma linha disponível no arquivo
+                        StringTokenizer qtdPalavras=new StringTokenizer(linhasDoArquivo);
+                        
+                        System.out.println(qtdPalavras.countTokens());
+                        //System.out.println(linhasDoArquivo);
+                        
+                    }
+            
+        } catch (FileNotFoundException ex) {
+            
+        }
+        
+    }
 }
