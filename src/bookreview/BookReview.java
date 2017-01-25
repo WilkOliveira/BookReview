@@ -102,7 +102,7 @@ public class BookReview {
                      * Analisa a frequencia e imprimi a classificação
                      */
                     if (freqBad != null || freqGood != null || freqMedium != null) {
-
+                        
                         if (freqGood > freqBad && freqGood > freqMedium) {
                             System.out.println("Este livro é classificado como bom");
                         } else if (freqMedium > freqGood && freqMedium > freqBad) {
@@ -110,7 +110,7 @@ public class BookReview {
                         } else if (freqBad > freqGood && freqBad > freqMedium) {
                             System.out.println("Este livro é classificado como ruim");
                         } else {
-                            System.out.println("Não foi possível classificar ");
+                            System.out.println("Não foi possível classificar");
                         }
 
                     }
