@@ -21,6 +21,9 @@ public class BookReview {
         String linhasDoArquivo;
         Map<String,Integer> mapPalavras;
         int i = 1;
+        Integer freqGood;
+        Integer freqMedium;
+        Integer freqBad;
         /**
          * Deixa todo o código dentro de try-catch para controlar erros nativos de arquivo não encontrado
          */      
@@ -52,24 +55,67 @@ public class BookReview {
                         while(m.find())
                         {
                             String token = m.group(); // Pega uma palavra
-                            Integer freq = mapPalavras.get(token); // Identifica se a palavra já foi mapeada
+                            freqGood = mapPalavras.get(token); // Identifica se a palavra já foi mapeada
+                            freqMedium = mapPalavras.get(token); // Identifica se a palavra já foi mapeada
+                            freqBad = mapPalavras.get(token); // Identifica se a palavra já foi mapeada
 				
                                 /**
-                                 * Se palavra existir, atualiza a frequencia, 
-                                 * Senão, cria um novo id e insere a palavra nesse id com frequência = 1
-                                 * - PRECISO PEGAR SOMENTE PALAVRAS ESPECIFICAS, NO CASO, ENCONTRAR A PALAVRA "good" OU "medium" OU "bad" e incrementar cada uma delas em uma variavel especifica, por fim, comparar e ver qual qual é a maior
-                                 * - Se a maior for a variavel que armazena a frequência de "good", dizer que a qualidade do livro é boa
+                                 * Armazena as palavras relacionadas a avaliação boa
                                  */
-				if (freq != null) {
-					mapPalavras.put(token, freq+1);
+				if (freqGood != null) {
+                                    if(token.equals("good") || token.equals("excellent") || token.equals("great"))
+					mapPalavras.put(token, freqGood+1);
 				}
 				else {
+                                    if(token.equals("good") || token.equals("excellent") || token.equals("great"))
 					mapPalavras.put(token,1);
 				}
+                                /**
+                                 * Armazena as palavras relacionadas a avaliação média
+                                 */
+                                if (freqMedium != null) {
+                                    if(token.equals("medium") || token.equals("regular") || token.equals("ordinary"))
+					mapPalavras.put(token, freqMedium+1);
+				}
+				else {
+                                    if(token.equals("medium") || token.equals("regular") || token.equals("ordinary"))
+					mapPalavras.put(token,1);
+				}
+                                /**
+                                 * Armazena as palavras relacionadas a avaliação ruim
+                                 */
+                                if (freqBad != null) {
+                                        if(token.equals("bad") || token.equals("terrible") || token.equals("awful"))
+					mapPalavras.put(token, freqBad+1);
+				}
+				else {
+                                    if(token.equals("bad") || token.equals("terrible") || token.equals("awful"))
+					mapPalavras.put(token,1);
+				}
+                                
+                                /**
+                                 * Analisa a frequencia e imprimi a classificação
+                                 */
+                                if(freqGood > freqBad && freqGood > freqMedium)
+                                {
+                                    System.out.println("Este livro é classificado como bom");
+                                }
+                                else if (freqMedium > freqGood && freqMedium > freqBad){
+                                    System.out.println("Este livro é classificado como médio");
+                                }
+                                else if (freqBad > freqGood && freqBad > freqMedium){
+                                    System.out.println("Este livro é classificado como ruim");
+                                }
+                                else{
+                                    System.out.println("Não foi possível classificar ");
+                                }
+                                
+                        }
+                        
                         }
                         
                         System.out.println("- Avaliação do texto " +i +" -");
-                            
+                        
                         for (Map.Entry<String, Integer> entry : mapPalavras.entrySet())
                             {
                                 System.out.println(entry.getKey() + "\t frequência = " + entry.getValue());
@@ -80,11 +126,9 @@ public class BookReview {
                         //System.out.println("Quantidade de palavras: " +qtdPalavras.countTokens());
                         //System.out.println(minusculo);
                         
-                    }
+                    }catch (FileNotFoundException ex) {
             
-        } catch (FileNotFoundException ex) {
+        } 
             
-        }
-        
     }
 }
