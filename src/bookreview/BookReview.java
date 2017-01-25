@@ -96,18 +96,23 @@ public class BookReview {
                                 /**
                                  * Analisa a frequencia e imprimi a classificação
                                  */
-                                if(freqGood > freqBad && freqGood > freqMedium)
+                                if (freqBad != null || freqGood != null || freqMedium != null)
                                 {
-                                    System.out.println("Este livro é classificado como bom");
-                                }
-                                else if (freqMedium > freqGood && freqMedium > freqBad){
-                                    System.out.println("Este livro é classificado como médio");
-                                }
-                                else if (freqBad > freqGood && freqBad > freqMedium){
-                                    System.out.println("Este livro é classificado como ruim");
-                                }
-                                else{
-                                    System.out.println("Não foi possível classificar ");
+
+                                    if(freqGood > freqBad && freqGood > freqMedium)
+                                    {
+                                        System.out.println("Este livro é classificado como bom");
+                                    }
+                                    else if (freqMedium > freqGood && freqMedium > freqBad){
+                                        System.out.println("Este livro é classificado como médio");
+                                    }
+                                    else if (freqBad > freqGood && freqBad > freqMedium){
+                                        System.out.println("Este livro é classificado como ruim");
+                                    }
+                                    else{
+                                        System.out.println("Não foi possível classificar ");
+                                    }
+                                
                                 }
                                 
                         }
@@ -128,7 +133,7 @@ public class BookReview {
                         
                     }catch (FileNotFoundException ex) {
             
-        } 
+        }
             
     }
 }
