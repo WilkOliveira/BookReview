@@ -11,6 +11,9 @@ Ao final, o programa mostra para cada usuário a frequência de cada classe e um
 Caso deseje, funcionalidades como imprimir cada comentário separadamente e ver a quantidade total de palavras podem ser ativadas, para isto, basta habilitar alguns trechos de código que estão comentados (desativadas) a partir da linha 128.
 
 Próximas funcionalidades:
+
 •	Permitir ao usuário inserir o arquivo manualmente;
+
 •	Adicionar novas palavras ao dicionário de cada categoria;
+
 •	Mostrar a média geral de frequência de cada classe.
