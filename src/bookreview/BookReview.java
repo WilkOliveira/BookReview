@@ -65,7 +65,7 @@ public class BookReview {
 
                     String cat = null; //categoria ainda não definida
 
-                    if (token.equals("good") || token.equals("excellent") || token.equals("great")|| token.equals("acceptable") || token.equals("positive") || token.equals("satisfactory")) {
+                    if (token.equals("good") || token.equals("excellent") || token.equals("great") || token.equals("acceptable") || token.equals("positive") || token.equals("satisfactory")) {
                         //Define a categoria como boa
                         cat = "good";
                     } else if (token.equals("medium") || token.equals("regular") || token.equals("ordinary") || token.equals("normal") || token.equals("intermediate") || token.equals("common") || token.equals("neutral")) {
@@ -88,14 +88,14 @@ public class BookReview {
                         }
                     }
                 }
-                
+
                 // Recupera o valor de cada categoria
                 freqGood = mapPalavras.get("good");
                 freqMedium = mapPalavras.get("medium");
                 freqBad = mapPalavras.get("bad");
 
                 System.out.println("- Avaliação do texto " + i + " -");
-                
+
                 /**
                  * Analisa a frequencia e imprimi a classificação
                  */
