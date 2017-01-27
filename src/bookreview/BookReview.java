@@ -21,9 +21,9 @@ public class BookReview {
         String linhasDoArquivo;
         Map<String, Integer> mapPalavras;
         int i = 1;
-        Integer freqGood = 0;
-        Integer freqMedium = 0;
-        Integer freqBad = 0;
+        Integer freqGood;
+        Integer freqMedium;
+        Integer freqBad;
 
         /**
          * Deixa todo o código dentro de try-catch para controlar erros nativos
@@ -52,86 +52,75 @@ public class BookReview {
                 Pattern p = Pattern.compile("(\\d+)|([a-záéíóúçãõôê]+)");
                 Matcher m = p.matcher(minusculo);
 
+                //Para cada linha do arquivo, inicia as categorias com 0
+                mapPalavras.put("good", 0);
+                mapPalavras.put("medium", 0);
+                mapPalavras.put("bad", 0);
+
                 /**
                  * Contador de frenquência de palavras
                  */
                 while (m.find()) {
                     String token = m.group(); // Pega uma palavra
-                    freqGood = mapPalavras.get(token); // Identifica se a palavra já foi mapeada
-                    freqMedium = mapPalavras.get(token); // Identifica se a palavra já foi mapeada
-                    freqBad = mapPalavras.get(token); // Identifica se a palavra já foi mapeada
 
-                    /**
-                     * Armazena as palavras relacionadas a avaliação boa
-                     */
-                    if (freqGood != null) {
-                        if (token.equals("good") || token.equals("excellent") || token.equals("great")) {
-                            mapPalavras.put("good", freqGood + 1);
-                        }
-                    } else {
-                        if (token.equals("good") || token.equals("excellent") || token.equals("great")) {
-                            mapPalavras.put("good", 1);
-                        }
-                    }
-                    /**
-                     * Armazena as palavras relacionadas a avaliação média
-                     */
-                    if (freqMedium != null) {
-                        if (token.equals("medium") || token.equals("regular") || token.equals("ordinary")) {
-                            mapPalavras.put("medium", freqMedium + 1);
-                        }
-                    } else {
-                        if (token.equals("medium") || token.equals("regular") || token.equals("ordinary")) {
-                            mapPalavras.put("medium", 1);
-                        }
-                    }
-                    /**
-                     * Armazena as palavras relacionadas a avaliação ruim
-                     */
-                    if (freqBad != null) {
-                        if (token.equals("bad") || token.equals("terrible") || token.equals("awful")) {
-                            mapPalavras.put("bad", freqBad + 1);
-                        }
-                    } else {
-                        if (token.equals("bad") || token.equals("terrible") || token.equals("awful")) {
-                            mapPalavras.put("bad", 1);
-                        }
-                    }
+                    String cat = null; //categoria ainda não definida
 
+                    if (token.equals("good") || token.equals("excellent") || token.equals("great")|| token.equals("acceptable") || token.equals("positive") || token.equals("satisfactory")) {
+                        //Define a categoria como boa
+                        cat = "good";
+                    } else if (token.equals("medium") || token.equals("regular") || token.equals("ordinary") || token.equals("normal") || token.equals("intermediate") || token.equals("common") || token.equals("neutral")) {
+                        //Define a categoria como média
+                        cat = "medium";
+                    } else if (token.equals("bad") || token.equals("terrible") || token.equals("awful") || token.equals("disagreeable") || token.equals("inferior") || token.equals("poor") || token.equals("unsatisfactory")) {
+                        //Define a categoria como ruim
+                        cat = "bad";
+                    }
                     /**
-                     * Analisa a frequencia e imprimi a classificação
+                     * Armazena as palavras relacionadas a avaliação da
+                     * categoria
                      */
-                    if (freqBad != null || freqGood != null || freqMedium != null) {
-                        
-                        if (freqGood > freqBad && freqGood > freqMedium) {
-                            System.out.println("Este livro é classificado como bom");
-                        } else if (freqMedium > freqGood && freqMedium > freqBad) {
-                            System.out.println("Este livro é classificado como médio");
-                        } else if (freqBad > freqGood && freqBad > freqMedium) {
-                            System.out.println("Este livro é classificado como ruim");
+                    if (cat != null) {
+                        if (mapPalavras.containsKey(cat)) {
+                            Integer value = mapPalavras.get(cat);
+                            mapPalavras.put(cat, value + 1);
                         } else {
-                            System.out.println("Não foi possível classificar");
+                            mapPalavras.put(cat, 1);
                         }
-
                     }
-
                 }
                 
+                // Recupera o valor de cada categoria
+                freqGood = mapPalavras.get("good");
+                freqMedium = mapPalavras.get("medium");
+                freqBad = mapPalavras.get("bad");
+
                 System.out.println("- Avaliação do texto " + i + " -");
+                
+                /**
+                 * Analisa a frequencia e imprimi a classificação
+                 */
+                if (freqGood > freqBad && freqGood > freqMedium) {
+                    System.out.println("Este livro é classificado como bom");
+                } else if (freqMedium > freqGood && freqMedium > freqBad) {
+                    System.out.println("Este livro é classificado como médio");
+                } else if (freqBad > freqGood && freqBad > freqMedium) {
+                    System.out.println("Este livro é classificado como ruim");
+                } else {
+                    System.out.println("Não foi possível classificar");
+                }
 
                 for (Map.Entry<String, Integer> entry : mapPalavras.entrySet()) {
                     System.out.println(entry.getKey() + "\t frequência = " + entry.getValue());
                 }
-
+                System.out.println("");
                 i = i + 1;
 
                 //System.out.println("Quantidade de palavras: " +qtdPalavras.countTokens());
                 //System.out.println(minusculo);
             }
 
-            
         } catch (FileNotFoundException ex) {
-
+            ex.printStackTrace();
         }
 
     }
